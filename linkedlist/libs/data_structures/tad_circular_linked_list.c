@@ -137,11 +137,44 @@ void listar(CircularLinkedList *lista) {
 // implemente aqui
 // ------------------------------------------------------------------------------
 void rotacionarLista(CircularLinkedList *list) {
+        if (list && list->inicio) {
+        list->inicio = list->inicio->prox;
+    }
 }
 
 void trocar(CircularLinkedList *leftList, CircularLinkedList *rightList) {
+        if (leftList && rightList) {
+        No *tempInicio = leftList->inicio;
+        int tempLength = leftList->length;
+        
+        leftList->inicio = rightList->inicio;
+        leftList->length = rightList->length;
+        
+        rightList->inicio = tempInicio;
+        rightList->length = tempLength;
+    }
 }
 
 void inserir_vetor_na_lista(CircularLinkedList *lista, char vetor[], int n) {
+        if (!lista) return;
+    
+    for (int i = 0; i < n; i++) {
+        No *novo = criar_no(vetor[i]);
+        if (!novo) return;
+        
+        if (!lista->inicio) {
+            lista->inicio = novo;
+            novo->prox = novo; // Primeiro nó aponta para ele mesmo
+        } else {
+            No *aux = lista->inicio;
+            while (aux->prox != lista->inicio) {
+                aux = aux->prox;
+            }
+            aux->prox = novo;
+            novo->prox = lista->inicio;
+        }
+        lista->length++;
+    }
 }
+
 
